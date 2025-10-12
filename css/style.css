@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 2em;
+  background: #f4f4f4;
+  padding: 2rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+}
+
+.forecast {
+  display: inline-block;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#app {
+  background: #fff;
+  padding: 1.5em;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
