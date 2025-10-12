@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
   <!-- Load Vue (development build) -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -12,16 +13,21 @@
   <div id="app">
     <h1>{{ title }}</h1>
 
-    <input v-model="city" placeholder="What city are you headed to?">
+    <input v-model="city" placeholder="Input City"><br>
     <button @click="fetchData">Fetch Forecast</button>
 
-    <div v-if="forecast.length">
+    <div class="box" v-if="forecast.length">
       <h2>Forecast for {{city}}</h2>
       <div class = "forecast" v-for="(day, index) in forecast" :key = "index">
         <p><strong>Day {{index + 1}}</strong></p>
         <p>{{ day.temp }}°C - {{ day.desc }}</p>
         <img :src="day.iconURL" :alt="day.desc">
-        <p><em>{{ day.advice }}</em></p>
+        <p><strong>Wind Speed: </strong>{{ day.windSpeed }} m/s</p>
+        <p>{{ day.advice }}</p>
+        <p>{{ day.tempAdv }}</p>
+        <h2>Air Pollutants</h2>
+        <p><strong>AQI: </strong>{{ day.aqi }} - {{ day.aqiDesc }}</p>
+        <p class = "warning"><strong>WARNING: </strong> {{day.pollutionWarn}} </p>
       </div>
     </div>
 
