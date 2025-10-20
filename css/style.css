@@ -1,3 +1,4 @@
+/* css affecting entire body of html */
 body {
   font-family: "Encode Sans SC", sans-serif;
   text-align: center;
@@ -7,6 +8,7 @@ body {
   background-image: url(background.jpg);
 }
 
+/* change style & appearance of button */
 button {
   padding: 0.5rem 1rem;
   font-family: "Encode Sans SC", sans-serif;
@@ -14,10 +16,12 @@ button {
   font-style: normal;
 }
 
+/* give colour to warning for AQI */
 .warning {
   color: rgb(170, 0, 0);
 }
 
+/* style & appearance of forecast div */
 .forecast {
   display: inline-block;
   margin: 1rem;
@@ -30,6 +34,7 @@ button {
   font-style: normal;
 }
 
+/* style & appearance of box where data is displayed */
 #app {
   background-color: rgba(255, 255, 255, 0.5);
   padding: 1.5em;
