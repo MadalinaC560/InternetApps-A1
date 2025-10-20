@@ -26,6 +26,7 @@
         <img :src="day.iconURL" :alt="day.desc">
         <p>{{ day.advice }}</p>
         <p>{{ day.tempAdv }}</p>
+        <p v-if="day.rain > 0"><strong>Rain:</strong> {{ day.rain }} mm</p>
         <p><strong>Wind Speed: </strong>{{ day.windSpeed }} m/s</p>
         <!-- UVI: Unique Feature -->
         <p><strong>UV Index: </strong> {{ day.uvi }} <br> {{ day.uvAdvice }}</p>
