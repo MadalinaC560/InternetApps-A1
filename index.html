@@ -21,17 +21,17 @@
       <h2>Forecast for {{city}}</h2>
       <div class = "forecast" v-for="(day, index) in forecast" :key = "index">
         <!-- Display Weather, Temperature, AQI, as well as advice based on weather, temperature & AQI -->
-        <p><strong>Day {{index + 1}}</strong></p>
+        <p><strong>{{day.date}}</strong></p>
         <p>{{ day.temp }}°C - {{ day.desc }}</p>
         <img :src="day.iconURL" :alt="day.desc">
-        <p><strong>Wind Speed: </strong>{{ day.windSpeed }} m/s</p>
         <p>{{ day.advice }}</p>
         <p>{{ day.tempAdv }}</p>
+        <p><strong>Wind Speed: </strong>{{ day.windSpeed }} m/s</p>
         <!-- UVI: Unique Feature -->
         <p><strong>UV Index: </strong> {{ day.uvi }} <br> {{ day.uvAdvice }}</p>
         <h2>Air Pollutants</h2>
         <p><strong>AQI: </strong>{{ day.aqi }} <br> {{ day.aqiDesc }}</p>
-        <p class = "warning"><strong>WARNING: </strong> {{day.pollutionWarn}} </p>
+        <p class = "warning"><strong>WARNING: <br></strong> <br>{{day.pollutionWarn}} </p>
       </div>
     </div><br><br>
 

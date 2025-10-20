@@ -61,6 +61,11 @@ createApp({
 
             // getting needed data from forecast json, as well as advice from helper functions
             this.forecast.push ({
+              date: new Date(item.dt_txt).toLocaleDateString("en-UK", {
+                weekday: "short",
+                month: "short",
+                day: "numeric"
+              }),
               temp: Math.round(forecastData.list[i].main.temp),
               desc: forecastData.list[i].weather[0].description,
               windSpeed: forecastData.list[i].wind.speed,
@@ -114,14 +119,14 @@ createApp({
       function getPollutionWarning(components) {
         let warnings = [];
 
-        if(components.pm2_5 > 35) warnings.push("PM2.5 elevated - May aggravate lungs or asthma");
-        if(components.pm10 > 50) warnings.push("PM10 elevated - May irritate respiratory system");
-        if(components.co > 10) warnings.push("CO elevated - May cause headaches/dizziness");
-        if(components.no2 > 200) warnings.push("NO2 elevated - May cause respiratory infection");
-        if(components.o3 > 180) warnings.push("O3 elevated - May cause lung irritation");
-        if(components.so2 > 125) warnings.push("SO2 elevated - May cause breathing issues");
-        if(components.hn3 > 200) warnings.push("NH3 elevated - May irritate eyes/respiratory tract");
-        return warnings.length ? warnings.join("; ") : "Air pollutants at safe levels";
+        if(components.pm2_5 > 35) warnings.push("PM2.5 elevated: ",components.pm2_5,  "μg/m3 - May aggravate lungs or asthma");
+        if(components.pm10 > 50) warnings.push("PM10 elevated: ", components.pm10, "μg/m3 - May irritate respiratory system");
+        if(components.co > 10) warnings.push("CO elevated: ", components.co,"ppm - May cause headaches/dizziness");
+        if(components.no2 > 200) warnings.push("NO2 elevated", components.no2, "μg/m3 - May cause respiratory infection");
+        if(components.o3 > 180) warnings.push("O3 elevated", components.o3,"DB - May cause lung irritation");
+        if(components.so2 > 125) warnings.push("SO2 elevated: ", components.so2, "ppb - May cause breathing issues");
+        if(components.hn3 > 200) warnings.push("NH3 elevated", components.hn3,"mg/L - May irritate eyes/respiratory tract");
+        return warnings.length ? warnings.join(" ") : "Air pollutants at safe levels";
       }
       // function to get advice based on UV index (uni)
       function getUVAdvice(uvi) {
