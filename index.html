@@ -25,12 +25,26 @@
         <p><strong>Wind Speed: </strong>{{ day.windSpeed }} m/s</p>
         <p>{{ day.advice }}</p>
         <p>{{ day.tempAdv }}</p>
+        <p><strong>UV Index: </strong> {{ day.uvi }} <br> {{ day.uvAdvice }}</p>
         <h2>Air Pollutants</h2>
-        <p><strong>AQI: </strong>{{ day.aqi }} - {{ day.aqiDesc }}</p>
+        <p><strong>AQI: </strong>{{ day.aqi }} <br> {{ day.aqiDesc }}</p>
         <p class = "warning"><strong>WARNING: </strong> {{day.pollutionWarn}} </p>
       </div>
-    </div>
+    </div><br><br>
 
+    <h1>Exchange Rate</h1>
+    <p>Input your Base Currency, Target Currency & an Amount</p>
+
+    <input v-model = "baseCurr" placeholder="Base Currency">
+    <input v-model = "targCurr" placeholder="Target Currency"><br>
+    <input v-model = "amount" placeholder="Amount"><br>
+    <button @click="fetchRate">Get Exchange Rate</button>
+
+    <div v-if="convAmount !== null">
+      <h3>Converted Amount</h3>
+      <p>{{ amount }} {{ baseCurr.toUpperCase() }} = {{ convAmount }} {{ targCurr.toUpperCase() }}</p>
+    </div>
+    
     <pre>{{ apiData }}</pre>
   </div>
 

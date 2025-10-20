@@ -5,6 +5,9 @@ createApp({
     return {
       title: 'Weather App',
       city: '',
+      baseCurr: '',
+      targCurr: '',
+      convAmount: null,
       forecast: [],
       apiData: null
     };
@@ -27,6 +30,9 @@ createApp({
         const pollutionResp = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
         const pollutionData = await pollutionResp.json();
 
+        const uvResp = await fetch(`https://api.openweathermap.org/data/2.5/uvi/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+        const uvData = await uvResp.json();
+
         const aqiVals = [
           pollutionData.list[0].main.aqi,
           pollutionData.list[8].main.aqi,
@@ -46,16 +52,18 @@ createApp({
             }
 
             this.forecast.push ({
-              temp: forecastData.list[i].main.temp,
+              temp: Math.round(forecastData.list[i].main.temp),
               desc: forecastData.list[i].weather[0].description,
               windSpeed: forecastData.list[i].wind.speed,
+              uvi: uvData[this.forecast.length]?.value || "N/A",
               rain: rain,
               iconURL: `https://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}@2x.png`,
               advice: getPackingAdvice(item.weather[0].description, rain),
               tempAdv: getTempAdvice(item.main.temp),
               aqi: aqiVals[count],
               aqiDesc: getAQIDesc(aqiVals[count]),
-              pollutionWarn: getPollutionWarning(pollutionData.list[count*8].components)
+              pollutionWarn: getPollutionWarning(pollutionData.list[count*8].components),
+              uvAdvice: getUVAdvice(uvData[this.forecast.length]?.value)
             });
             count++;
           }
@@ -101,6 +109,26 @@ createApp({
         if(components.so2 > 125) warnings.push("SO2 elevated - May cause breathing issues");
         if(components.hn3 > 200) warnings.push("NH3 elevated - May irritate eyes/respiratory tract");
         return warnings.length ? warnings.join("; ") : "Air pollutants at safe levels";
+      }
+      function getUVAdvice(uvi) {
+        if (uvi == "N/A" )return "UV data unavailable";
+        if (uvi < 3) return "Low UV - Safe to go outside";
+        if (uvi < 6) return "Moderate UV - Wear suncream";
+        if (uvi < 8) return "High UV - Use a hat & sunglasses";
+        return "Very High UV - Avoid the midday sun"
+      } 
+    },
+
+    async fetchRate() {
+      const exchKey = '9998e072497226997e9f3170';
+
+      try {
+        const exchResp = await fetch(`https://v6.exchangerate-api.com/v6/${exchKey}/pair/${this.baseCurr}/${this.targCurr}/${this.amount}`);
+        const exchData = await exchResp.json();
+
+        this.convAmount = exchData.conversion_result;
+      } catch (error) {
+        console.error("Error fetching exchange rate: ", error);
       }
     }
   }
